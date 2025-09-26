@@ -4,7 +4,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 const jwtSecret = process.env.JWT_SECRET;
 const tareaRoutes = require('./routes/tareaRoutes');
+const cors = require('cors');
 
+const corsOptions = {
+    origin: 'http://localhost:5000' || process.env.CORS_ORIGIN
+}
 
 app.use(express.json());
 console.log("secret password: ",jwtSecret)
