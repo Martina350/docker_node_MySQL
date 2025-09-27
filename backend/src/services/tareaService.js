@@ -4,8 +4,8 @@ async function getTareas(userId) {
     return await tareaRepository.getTareas(userId);
 }
 
-async function deleteTarea(id) {
-    return await tareaRepository.deleteTarea(id);
+async function deleteTarea(id, userId) {
+    return await tareaRepository.deleteTarea(id, userId);
 }
 
 async function createTarea(data, userId) {

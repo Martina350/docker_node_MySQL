@@ -14,7 +14,9 @@ async function getTareas(req, res) {
 
 async function deleteTarea(req, res) {
     try {
-        const tarea = await tareaService.deleteTarea(parseInt(req.params.id));
+        const userId = req.user.userId; // Obtener el userId del token decodificado
+        const tareaId = parseInt(req.params.id);
+        const tarea = await tareaService.deleteTarea(tareaId, userId);
         res.status(200).json({message: "Tarea deleted successfully", data: tarea} );
     }
     catch (error) {

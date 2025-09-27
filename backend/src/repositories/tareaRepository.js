@@ -7,7 +7,7 @@ async function getTareas(userId) {
     });
 }
 
-async function deleteTarea(id) {
+async function deleteTarea(id, userId) {
     return await prisma.tarea.delete({
         where: { id: id }
     });
