@@ -16,7 +16,7 @@ async function registerUser(data) {
     const user = await userRepository.createUser({
         email: data.email,
         password: hashedPassword,
-        rol: 'usuario'
+        rol: data.rol || 'usuario' // Usar el rol del request o 'usuario' por defecto
     });
     return user;
 }
