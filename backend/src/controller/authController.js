@@ -4,7 +4,7 @@ async function register(req, res) {
     console.log('Register request body:', req.body);
     
     try {
-        // Validar que el cuerpo de la petición no esté vacío
+
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).json({ message: 'Request body is required' });
         }
@@ -22,7 +22,7 @@ async function loginUser(req, res) {
     console.log('Login request body:', req.body);
     
     try {
-        // Validar que el cuerpo de la petición no esté vacío
+
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).json({ message: 'Request body is required' });
         }

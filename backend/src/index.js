@@ -7,7 +7,7 @@ const tareaRoutes = require('./routes/tareaRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
 
-const corsOptions = {
+const corsOption = {
     origin: 'http://localhost:5000' || process.env.CORS_ORIGIN
 }
 
