@@ -3,15 +3,20 @@ const userRepository = require('../repositories/userRepository');
 
 const saltRounds = 10;
 async function registerUser(data) {
+    // Validar que los datos requeridos estén presentes
+    if (!data.email || !data.password) {
+        throw new Error('Email and password are required');
+    }
+
     const userExists = await userRepository.getUserByEmail(data.email);
     if (userExists) throw new Error('User already exists');
 
     const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
     const user = await userRepository.createUser({
-        ...data,
+        email: data.email,
         password: hashedPassword,
-        rol: 'user'
+        rol: 'usuario'
     });
     return user;
 }
@@ -22,6 +27,11 @@ const jwtSecret = process.env.JWT_SECRET;
 const secret_key = jwtSecret;
 
 async function loginUser(data) {
+    // Validar que los datos requeridos estén presentes
+    if (!data.email || !data.password) {
+        throw new Error('Email and password are required');
+    }
+
     const user = await userRepository.getUserByEmail(data.email);
     if (!user) throw new Error('Invalid email or password');
 
