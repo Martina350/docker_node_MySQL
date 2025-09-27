@@ -11,6 +11,8 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
 
   adminer:
     image: adminer
@@ -19,6 +21,8 @@ services:
       - "8080:8080"
     depends_on: 
       - mysql
+    networks:
+      - app-network
 
   backend:
     build: .
@@ -30,8 +34,12 @@ services:
       - .env
     volumes:
       - ./:/usr/src/app
+    networks:
+      - app-network
 
 volumes:
   mysql_data:
 
-
+networks:
+  app-network:
+    driver: bridge
