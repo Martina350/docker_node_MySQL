@@ -1,9 +1,8 @@
-const { use } = require('react');
 const tareaService = require('../services/tareaService');
 
 async function getTareas(req, res) {
     try {
-        const userId = req.user.id; // Asegúrate de que el middleware de autenticación establece req.user
+        const userId = req.user.userId; // Obtener el userId del token decodificado
         const tareas = await tareaService.getTareas(userId);
         console.log(tareas);
         res.status(200).json({message: "Tareas retrieved successfully", data: tareas} );
@@ -33,7 +32,8 @@ module.exports = {
 
 async function createTarea(req, res) {
     try {
-        const tarea = await tareaService.createTarea(req.body);
+        const userId = req.user.userId; // Obtener el userId del token decodificado
+        const tarea = await tareaService.createTarea(req.body, userId);
         res.status(201).json({ message: "Tarea created successfully", data: tarea });
     }
     catch (error) {
