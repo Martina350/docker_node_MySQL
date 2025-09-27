@@ -8,9 +8,12 @@ async function getTareas(userId) {
 }
 
 async function deleteTarea(id, userId) {
-    return await prisma.tarea.delete({
-        where: { id: id }
-    });
+    const tareaId = parseInt(id);
+
+    if (isNaN(tareaId)) {
+        throw new Error('Invalid tarea ID');
+    }
+    
 }
 
 async function createTarea(data, userId) {
