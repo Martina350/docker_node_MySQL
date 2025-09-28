@@ -1,4 +1,6 @@
 const authService = require('../services/authService');
+const blacklistRepository = require('../repositories/tokenBlacklistRepository');
+
 
 async function register(req, res) {
     console.log('Register request body:', req.body);
@@ -36,7 +38,21 @@ async function loginUser(req, res) {
     }
 }
 
+async function logoutUser(req, res) {
+
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) return res.status(401).json({ message: 'No token provided' });
+
+    const token = authHeader.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'No token modify provided' });
+
+    await blacklistRepository.addTokenRevocado(token);
+
+    res.json({ message: 'Logout successful' });
+}
+
 module.exports = {
     loginUser,
+    logoutUser,
     register
 };
