@@ -9,9 +9,9 @@ servers:
     description: Local server
 
 paths:
-  /api/login:
+  /api/register:
     post:
-      summary: User login
+      summary: User registration
       requestBody:
         required: true
         content:
@@ -21,7 +21,7 @@ paths:
               properties:
                 email:
                   type: string
-                  example: example@example.com
+                  example: example2@example.com
                 password:
                   type: string
                   example: "example123"
@@ -30,8 +30,66 @@ paths:
                   example: "admin"
       responses:
         '201':
-          description: "Successful login"
+          description: "Successful registration"
         '540':
+          description: "Server error"
+
+  /api/login:
+    post:
+      summary: User login 
+      description: Login user with email and password
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - rol
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: The email of the user
+                  example: example2@example.com
+                password:
+                  type: string
+                  description: The password of the user
+                  example: "example123"
+      responses:
+        '200':
+          description: "Successful login"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The message of the login
+                    example: "Login successful"
+                  token:
+                    type: string
+                    description: Token JWT
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiZXhhbXBsZUBleGFtcGxlLmNvbSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzI3Njg4MDAwLCJleHAiOjE3Mjc2OTE2MDB9.b_9sX_Mpr2CkixoOuN6qXxK_Ojgg-uPXlQ6g9xXpTQ8"
+        '400':
+          description: "Bad request"
+        '500':
+          description: "Server error"
+
+  /api/logout:
+    post:
+      summary: User logout
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: "Successful logout"
+        '500':
           description: "Server error"
 
 components:
