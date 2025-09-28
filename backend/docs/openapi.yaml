@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: API management Tareas
+  version: 1.0.0
+  description: API to manage tasks with JWT authentication.
+
+servers:
+  - url: http://localhost:5000
+    description: Local server
+
+paths:
+  /api/login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@example.com
+                password:
+                  type: string
+                  example: "example123"
+                rol:
+                  type: string
+                  example: "admin"
+      responses:
+        '201':
+          description: "Successful login"
+        '540':
+          description: "Server error"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT     
